@@ -12,6 +12,12 @@
         <param-value></param-value>
     </context-param>
 
+    <!-- default locale for <fmt:formatNumber>, so prices always show as 2,500.00 -->
+    <context-param>
+        <param-name>jakarta.servlet.jsp.jstl.fmt.locale</param-name>
+        <param-value>en_US</param-value>
+    </context-param>
+
     <!-- every JSP is read and sent as UTF-8 -->
     <jsp-config>
         <jsp-property-group>

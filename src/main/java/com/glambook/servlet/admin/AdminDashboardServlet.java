@@ -1,6 +1,7 @@
 package com.glambook.servlet.admin;
 
 import com.glambook.model.Customer;
+import com.glambook.service.ServiceManager;
 import com.glambook.service.UserService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -18,6 +19,7 @@ import java.util.List;
 public class AdminDashboardServlet extends HttpServlet {
 
     private final UserService userService = new UserService();
+    private final ServiceManager serviceManager = new ServiceManager();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -33,6 +35,9 @@ public class AdminDashboardServlet extends HttpServlet {
         request.setAttribute("customerCount", customers.size());
         request.setAttribute("premiumCount", premiumCount);
         request.setAttribute("adminCount", userService.getAllUsers().size() - customers.size());
+
+        // service statistics
+        request.setAttribute("serviceCount", serviceManager.getAllServices().size());
 
         request.getRequestDispatcher("/admin/dashboard.jsp").forward(request, response);
     }

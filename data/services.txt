@@ -1,0 +1,10 @@
+S001|HAIR|Ladies Haircut and Blow Dry|2500.0|45|Wash, precision cut and blow-dry styling|MEDIUM
+S002|HAIR|Global Hair Colouring|8500.0|120|Full head colour using L'Oreal Professional products|LONG
+S003|HAIR|Keratin Smoothing Treatment|15000.0|150|Frizz control keratin treatment for smooth, shiny hair|LONG
+S004|HAIR|Gents Haircut|1200.0|30|Classic or modern cut with styling|SHORT
+S005|SKIN|Gold Radiance Facial|6500.0|60|Deep cleansing facial finished with a 24k gold mask|Dermalogica
+S006|SKIN|Basic Clean-Up|3000.0|40|Cleansing, scrub and steam for fresh looking skin|Himalaya
+S007|SKIN|Anti-Acne Facial|5500.0|60|Treatment facial for oily and acne prone skin|Cetaphil
+S008|MAKEUP|Party Makeup|7500.0|60|Full face party makeup with lashes|PARTY
+S009|MAKEUP|Bridal Makeup (Kandyan)|35000.0|180|Complete Kandyan bridal makeup and hair dressing|BRIDAL
+S010|MAKEUP|Natural Day Makeup|4000.0|45|Light, natural look for office or events|CASUAL
