@@ -1,0 +1,10 @@
+R001|VERIFIED|C001|Nimali Perera|SERVICE|S005|5|The gold facial was so relaxing and my skin was glowing for days!|2026-09-15|VISIBLE|A001
+R002|VERIFIED|C002|Tharushi Fernando|STYLIST|ST001|5|Chamari is amazing. She listened to exactly what I wanted and the cut is perfect.|2026-09-19|VISIBLE|A002
+R003|VERIFIED|C005|Malsha Rajapaksha|STYLIST|ST006|4|Yasara did a soft natural look for my office event. Very friendly and quick.|2026-09-23|VISIBLE|A012
+R004|VERIFIED|C003|Sachini Silva|SERVICE|S008|4|Lovely party makeup that lasted the whole night. The lashes were a bit heavy for me.|2026-09-27|VISIBLE|A003
+R005|VERIFIED|C008|Kavindi Herath|SERVICE|S006|5|Clean-up was refreshing and Anusha explained every step. Great value.|2026-10-01|VISIBLE|A013
+R006|VERIFIED|C004|Ishara Gunasekara|SERVICE|S004|4|Quick and neat haircut, good value for money.|2026-10-02|VISIBLE|A004
+R007|PUBLIC|C007|Ravindu Senanayake|STYLIST|ST002|3|Came in for a consultation. Dinuka was helpful but the salon was busy and I waited a while.|2026-10-04|VISIBLE|-
+R008|PUBLIC|C008|Kavindi Herath|SERVICE|S009|5|Saw my cousin's Kandyan bridal look done here. Absolutely stunning!|2026-10-05|VISIBLE|-
+R009|VERIFIED|C006|Hiruni Bandara|SERVICE|S003|5|Keratin treatment worked wonders on my frizzy hair. Worth every rupee.|2026-10-07|VISIBLE|A006
+R010|PUBLIC|C004|Ishara Gunasekara|STYLIST|ST004|2|Parking near Galle Road is terrible, took me 20 minutes to find a spot.|2026-10-08|HIDDEN|-
