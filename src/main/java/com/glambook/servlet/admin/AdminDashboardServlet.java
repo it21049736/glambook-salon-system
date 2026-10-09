@@ -2,6 +2,7 @@ package com.glambook.servlet.admin;
 
 import com.glambook.model.Customer;
 import com.glambook.service.ServiceManager;
+import com.glambook.service.StylistService;
 import com.glambook.service.UserService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -20,6 +21,7 @@ public class AdminDashboardServlet extends HttpServlet {
 
     private final UserService userService = new UserService();
     private final ServiceManager serviceManager = new ServiceManager();
+    private final StylistService stylistService = new StylistService();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -38,6 +40,7 @@ public class AdminDashboardServlet extends HttpServlet {
 
         // service statistics
         request.setAttribute("serviceCount", serviceManager.getAllServices().size());
+        request.setAttribute("stylistCount", stylistService.getAllStylists().size());
 
         request.getRequestDispatcher("/admin/dashboard.jsp").forward(request, response);
     }

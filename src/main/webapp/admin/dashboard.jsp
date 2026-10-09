@@ -26,6 +26,13 @@
             <a class="small" href="${ctx}/services">Manage services</a>
         </div>
     </div>
+    <div class="col-6 col-lg-3">
+        <div class="card glam-card stat-card p-3 h-100">
+            <div class="text-muted small">Stylists</div>
+            <div class="stat-number">${stylistCount}</div>
+            <a class="small" href="${ctx}/stylists">Manage stylists</a>
+        </div>
+    </div>
 </div>
 
 <%@ include file="/includes/footer.jsp" %>
