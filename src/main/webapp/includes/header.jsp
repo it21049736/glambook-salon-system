@@ -26,6 +26,15 @@
         <c:remove var="flash" scope="session"/>
     </c:if>
 
+    <%-- error message saved in the session before a redirect --%>
+    <c:if test="${not empty sessionScope.flashError}">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <i class="bi bi-exclamation-triangle"></i> <c:out value="${sessionScope.flashError}"/>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        <c:remove var="flashError" scope="session"/>
+    </c:if>
+
     <%-- error message forwarded from a servlet --%>
     <c:if test="${not empty error}">
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
