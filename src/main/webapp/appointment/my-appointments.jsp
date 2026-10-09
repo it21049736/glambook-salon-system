@@ -63,6 +63,10 @@
                         </c:choose>
                     </td>
                     <td class="text-end text-nowrap">
+                        <c:if test="${a.active}">
+                            <a class="btn btn-sm btn-glam" href="${ctx}/payments/pay?appointmentId=${a.appointmentId}">
+                                <i class="bi bi-credit-card"></i> Pay</a>
+                        </c:if>
                         <c:if test="${a.changeable}">
                             <a class="btn btn-sm btn-outline-secondary" href="${ctx}/appointments/reschedule?id=${a.appointmentId}">
                                 <i class="bi bi-arrow-repeat"></i> Reschedule</a>
