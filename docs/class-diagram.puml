@@ -1,0 +1,255 @@
+@startuml GlamBook
+' GlamBook - Beauty Salon Appointment Booking System
+' Class diagram of the model, dao, service and util layers.
+' Render with PlantUML (IntelliJ PlantUML plugin or https://www.plantuml.com).
+
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+skinparam packageStyle rectangle
+hide empty members
+
+package "com.glambook.model" {
+
+  ' ---------------- User Management ----------------
+  abstract class User {
+    - userId : String
+    - fullName : String
+    - email : String
+    - phone : String
+    - password : String
+    + {abstract} getRole() : String
+    + {abstract} canAccessAdmin() : boolean
+    + {abstract} getHomePage() : String
+    # {abstract} getExtraField() : String
+    + checkPassword(input : String) : boolean
+    + toFileString() : String
+    + {static} fromFileString(line : String) : User
+  }
+  class Customer {
+    - membership : String
+    + isPremium() : boolean
+  }
+  class AdminUser {
+    - position : String
+  }
+  User <|-- Customer
+  User <|-- AdminUser
+
+  ' ---------------- Service Management ----------------
+  abstract class Service {
+    - serviceId : String
+    - name : String
+    - basePrice : double
+    - durationMinutes : int
+    - description : String
+    + {abstract} getCategory() : String
+    + {abstract} calculatePrice() : double
+    + {abstract} getExtraDetail() : String
+    + {abstract} getExtraLabel() : String
+    + toFileString() : String
+    + {static} fromFileString(line : String) : Service
+    + {static} create(category, ...) : Service
+  }
+  class HairService {
+    - hairLength : String
+    + calculatePrice() : double
+  }
+  class SkinService {
+    - productBrand : String
+    + calculatePrice() : double
+  }
+  class MakeupService {
+    - occasion : String
+    + calculatePrice() : double
+  }
+  Service <|-- HairService
+  Service <|-- SkinService
+  Service <|-- MakeupService
+
+  ' ---------------- Stylist Management ----------------
+  abstract class Stylist {
+    - stylistId : String
+    - name : String
+    - phone : String
+    - email : String
+    - specialty : String
+    - workingDays : String
+    - shiftStart : String
+    - shiftEnd : String
+    - experienceYears : int
+    + {abstract} getLevel() : String
+    + {abstract} getCommissionRate() : double
+    + {abstract} calculateCommission(amount : double) : double
+    + worksOn(day : DayOfWeek) : boolean
+    + isWithinShift(time : String) : boolean
+    + toFileString() : String
+    + {static} fromFileString(line : String) : Stylist
+  }
+  class SeniorStylist {
+    + calculateCommission(amount : double) : double
+  }
+  class JuniorStylist {
+    + calculateCommission(amount : double) : double
+  }
+  Stylist <|-- SeniorStylist
+  Stylist <|-- JuniorStylist
+
+  ' ---------------- Appointment Booking ----------------
+  class Appointment {
+    - appointmentId : String
+    - customerId : String
+    - serviceId : String
+    - stylistId : String
+    - date : LocalDate
+    - timeSlot : String
+    - originalPrice : double
+    - discount : double
+    - finalPrice : double
+    - status : String
+    + isActive() : boolean
+    + isChangeable() : boolean
+    + toFileString() : String
+    + {static} fromFileString(line : String) : Appointment
+  }
+  interface SlotChecker {
+    + TIME_SLOTS : String[]
+    + isSlotAvailable(stylistId, date, timeSlot, ignoreId) : boolean
+    + getAvailableSlots(stylistId, date, ignoreId) : List<String>
+  }
+  interface DiscountPolicy {
+    + calculateDiscount(amount : double) : double
+    + getDescription() : String
+  }
+  class RegularDiscount
+  class PremiumDiscount
+  DiscountPolicy <|.. RegularDiscount
+  DiscountPolicy <|.. PremiumDiscount
+
+  ' ---------------- Payment and Billing ----------------
+  abstract class Payment {
+    - paymentId : String
+    - appointmentId : String
+    - customerId : String
+    - amount : double
+    - paymentDate : LocalDate
+    - status : String
+    + {abstract} getMethod() : String
+    + {abstract} processPayment() : boolean
+    + {abstract} getDetails() : String
+    + isVoided() : boolean
+    + toFileString() : String
+    + {static} fromFileString(line : String) : Payment
+  }
+  class CashPayment {
+    - amountTendered : double
+    - changeGiven : double
+    + processPayment() : boolean
+  }
+  class CardPayment {
+    - cardHolder : String
+    - cardLast4 : String
+    + setCardNumber(number : String) : void
+    + processPayment() : boolean
+  }
+  Payment <|-- CashPayment
+  Payment <|-- CardPayment
+
+  ' ---------------- Feedback and Reviews ----------------
+  abstract class Review {
+    - reviewId : String
+    - customerId : String
+    - customerName : String
+    - targetType : String
+    - targetId : String
+    - rating : int
+    - comment : String
+    - reviewDate : LocalDate
+    - status : String
+    + {abstract} getType() : String
+    + {abstract} getAppointmentId() : String
+    + getBadge() : String
+    + getDisplayName(forAdmin : boolean) : String
+    + toFileString() : String
+    + {static} fromFileString(line : String) : Review
+  }
+  class PublicReview {
+    + getBadge() : String
+  }
+  class VerifiedReview {
+    - appointmentId : String
+    + getBadge() : String
+    + getDisplayName(forAdmin : boolean) : String
+  }
+  Review <|-- PublicReview
+  Review <|-- VerifiedReview
+
+  ' ---------------- relationships between records (by id) ----------------
+  Appointment "*" --> "1" Customer : customerId
+  Appointment "*" --> "1" Service : serviceId
+  Appointment "*" --> "1" Stylist : stylistId
+  Payment "*" --> "1" Appointment : appointmentId
+  Review "*" --> "1" Customer : customerId
+  VerifiedReview "*" --> "1" Appointment : appointmentId
+}
+
+package "com.glambook.dao" {
+  class FileHandler {
+    + {static} readLines(fileName) : List<String>
+    + {static} writeLines(fileName, lines) : boolean
+    + {static} appendLine(fileName, line) : boolean
+  }
+  class UserDAO
+  class ServiceDAO
+  class StylistDAO
+  class AppointmentDAO
+  class PaymentDAO
+  class ReviewDAO
+  UserDAO ..> FileHandler
+  ServiceDAO ..> FileHandler
+  StylistDAO ..> FileHandler
+  AppointmentDAO ..> FileHandler
+  PaymentDAO ..> FileHandler
+  ReviewDAO ..> FileHandler
+}
+
+package "com.glambook.service" {
+  class UserService
+  class ServiceManager
+  class StylistService
+  class AppointmentService
+  class PaymentService
+  class ReviewService
+  SlotChecker <|.. AppointmentService
+  UserService --> UserDAO
+  ServiceManager --> ServiceDAO
+  StylistService --> StylistDAO
+  AppointmentService --> AppointmentDAO
+  AppointmentService --> ServiceDAO
+  AppointmentService --> StylistDAO
+  AppointmentService --> UserDAO
+  AppointmentService ..> DiscountPolicy : uses
+  PaymentService --> PaymentDAO
+  PaymentService --> AppointmentService
+  ReviewService --> ReviewDAO
+  ReviewService --> AppointmentDAO
+}
+
+package "com.glambook.util" {
+  class IdGenerator {
+    + {static} generateId(prefix, existingIds) : String
+  }
+  class Validator {
+    + {static} isEmpty(value) : boolean
+    + {static} isValidEmail(email) : boolean
+    + {static} isValidPhone(phone) : boolean
+    + {static} isValidPassword(password) : boolean
+    + {static} isNotPastDate(date) : boolean
+    + {static} clean(value) : String
+  }
+  class DataPath {
+    + {static} getFile(fileName) : File
+  }
+}
+
+FileHandler ..> DataPath
+@enduml
