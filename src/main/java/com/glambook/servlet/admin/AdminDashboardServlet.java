@@ -2,7 +2,9 @@ package com.glambook.servlet.admin;
 
 import com.glambook.model.Appointment;
 import com.glambook.model.Customer;
+import com.glambook.model.Payment;
 import com.glambook.service.AppointmentService;
+import com.glambook.service.PaymentService;
 import com.glambook.service.ServiceManager;
 import com.glambook.service.StylistService;
 import com.glambook.service.UserService;
@@ -26,6 +28,7 @@ public class AdminDashboardServlet extends HttpServlet {
     private final ServiceManager serviceManager = new ServiceManager();
     private final StylistService stylistService = new StylistService();
     private final AppointmentService appointmentService = new AppointmentService();
+    private final PaymentService paymentService = new PaymentService();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -59,6 +62,16 @@ public class AdminDashboardServlet extends HttpServlet {
         }
         request.setAttribute("upcomingCount", upcoming);
         request.setAttribute("todayCount", todayCount);
+
+        // payment statistics
+        int pendingPayments = 0;
+        for (Payment p : paymentService.getAllPayments()) {
+            if (Payment.PENDING.equals(p.getStatus())) {
+                pendingPayments++;
+            }
+        }
+        request.setAttribute("totalRevenue", paymentService.getTotalRevenue());
+        request.setAttribute("pendingPayments", pendingPayments);
 
         request.getRequestDispatcher("/admin/dashboard.jsp").forward(request, response);
     }
