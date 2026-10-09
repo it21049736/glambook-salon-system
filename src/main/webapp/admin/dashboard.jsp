@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <c:set var="pageTitle" value="Admin Dashboard" scope="request"/>
 <%@ include file="/includes/header.jsp" %>
 
@@ -38,6 +39,13 @@
             <div class="text-muted small">Upcoming appointments</div>
             <div class="stat-number">${upcomingCount}</div>
             <div class="small">${todayCount} today &middot; <a href="${ctx}/appointments/my">view all</a></div>
+        </div>
+    </div>
+    <div class="col-6 col-lg-3">
+        <div class="card glam-card stat-card p-3 h-100">
+            <div class="text-muted small">Revenue (paid)</div>
+            <div class="stat-number" style="font-size: 1.5rem;">LKR <fmt:formatNumber value="${totalRevenue}" pattern="#,##0"/></div>
+            <div class="small">${pendingPayments} pending &middot; <a href="${ctx}/payments/history">payments</a></div>
         </div>
     </div>
 </div>
