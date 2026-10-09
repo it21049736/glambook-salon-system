@@ -7,7 +7,9 @@ import com.glambook.util.IdGenerator;
 import com.glambook.util.Validator;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Business logic for user management: register, login, search, update and delete.
@@ -124,6 +126,15 @@ public class UserService {
             }
         }
         return customers;
+    }
+
+    // id -> name map, used to show customer names on appointment and payment pages
+    public Map<String, String> getUserNames() {
+        Map<String, String> names = new HashMap<>();
+        for (User user : userDAO.getAll()) {
+            names.put(user.getUserId(), user.getFullName());
+        }
+        return names;
     }
 
     // checks shared by register and update
