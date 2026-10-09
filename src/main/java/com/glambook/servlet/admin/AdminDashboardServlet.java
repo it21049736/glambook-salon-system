@@ -3,8 +3,10 @@ package com.glambook.servlet.admin;
 import com.glambook.model.Appointment;
 import com.glambook.model.Customer;
 import com.glambook.model.Payment;
+import com.glambook.model.Review;
 import com.glambook.service.AppointmentService;
 import com.glambook.service.PaymentService;
+import com.glambook.service.ReviewService;
 import com.glambook.service.ServiceManager;
 import com.glambook.service.StylistService;
 import com.glambook.service.UserService;
@@ -29,6 +31,7 @@ public class AdminDashboardServlet extends HttpServlet {
     private final StylistService stylistService = new StylistService();
     private final AppointmentService appointmentService = new AppointmentService();
     private final PaymentService paymentService = new PaymentService();
+    private final ReviewService reviewService = new ReviewService();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -72,6 +75,20 @@ public class AdminDashboardServlet extends HttpServlet {
         }
         request.setAttribute("totalRevenue", paymentService.getTotalRevenue());
         request.setAttribute("pendingPayments", pendingPayments);
+
+        // review statistics
+        List<Review> reviews = reviewService.getAllReviews();
+        int hiddenReviews = 0;
+        for (Review r : reviews) {
+            if (!r.isVisible()) {
+                hiddenReviews++;
+            }
+        }
+        request.setAttribute("reviewCount", reviews.size());
+        request.setAttribute("hiddenReviews", hiddenReviews);
+        request.setAttribute("averageRating", reviewService.getAverageRating(reviews));
+        // newest five reviews for the "latest feedback" box
+        request.setAttribute("latestReviews", reviews.subList(0, Math.min(5, reviews.size())));
 
         request.getRequestDispatcher("/admin/dashboard.jsp").forward(request, response);
     }
