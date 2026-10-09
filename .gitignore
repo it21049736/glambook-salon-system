@@ -1,0 +1,20 @@
+# Maven
+target/
+*.war
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+out/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Local tool settings
+.claude/
+CLAUDE.md
