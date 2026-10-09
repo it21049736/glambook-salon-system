@@ -33,6 +33,13 @@
             <a class="small" href="${ctx}/stylists">Manage stylists</a>
         </div>
     </div>
+    <div class="col-6 col-lg-3">
+        <div class="card glam-card stat-card p-3 h-100">
+            <div class="text-muted small">Upcoming appointments</div>
+            <div class="stat-number">${upcomingCount}</div>
+            <div class="small">${todayCount} today &middot; <a href="${ctx}/appointments/my">view all</a></div>
+        </div>
+    </div>
 </div>
 
 <%@ include file="/includes/footer.jsp" %>

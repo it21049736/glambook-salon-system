@@ -1,6 +1,8 @@
 package com.glambook.servlet.admin;
 
+import com.glambook.model.Appointment;
 import com.glambook.model.Customer;
+import com.glambook.service.AppointmentService;
 import com.glambook.service.ServiceManager;
 import com.glambook.service.StylistService;
 import com.glambook.service.UserService;
@@ -11,6 +13,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -22,6 +25,7 @@ public class AdminDashboardServlet extends HttpServlet {
     private final UserService userService = new UserService();
     private final ServiceManager serviceManager = new ServiceManager();
     private final StylistService stylistService = new StylistService();
+    private final AppointmentService appointmentService = new AppointmentService();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -41,6 +45,20 @@ public class AdminDashboardServlet extends HttpServlet {
         // service statistics
         request.setAttribute("serviceCount", serviceManager.getAllServices().size());
         request.setAttribute("stylistCount", stylistService.getAllStylists().size());
+
+        // appointment statistics: upcoming = still active and not in the past
+        int upcoming = 0;
+        int todayCount = 0;
+        for (Appointment a : appointmentService.getAllAppointments()) {
+            if (a.isActive() && !a.getDate().isBefore(LocalDate.now())) {
+                upcoming++;
+                if (a.getDate().equals(LocalDate.now())) {
+                    todayCount++;
+                }
+            }
+        }
+        request.setAttribute("upcomingCount", upcoming);
+        request.setAttribute("todayCount", todayCount);
 
         request.getRequestDispatcher("/admin/dashboard.jsp").forward(request, response);
     }
