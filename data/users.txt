@@ -1,0 +1,10 @@
+AD001|ADMIN|Kasun Jayawardena|admin@glambook.lk|0112345678|admin123|Salon Manager
+AD002|ADMIN|Dilani Wickramasinghe|dilani@glambook.lk|0112345679|dilani123|Front Desk Supervisor
+C001|CUSTOMER|Nimali Perera|nimali@gmail.com|0771234567|nimali123|PREMIUM
+C002|CUSTOMER|Tharushi Fernando|tharushi.f@gmail.com|0712345678|tharu123|REGULAR
+C003|CUSTOMER|Sachini Silva|sachini.silva@yahoo.com|0765432198|sachini123|PREMIUM
+C004|CUSTOMER|Ishara Gunasekara|ishara.g@gmail.com|0703456789|ishara123|REGULAR
+C005|CUSTOMER|Malsha Rajapaksha|malsha.r@gmail.com|0759876543|malsha123|REGULAR
+C006|CUSTOMER|Hiruni Bandara|hiruni.bandara@outlook.com|0778765432|hiruni123|PREMIUM
+C007|CUSTOMER|Ravindu Senanayake|ravindu.s@gmail.com|0721122334|ravindu123|REGULAR
+C008|CUSTOMER|Kavindi Herath|kavindi.herath@gmail.com|0784455667|kavindi123|REGULAR
